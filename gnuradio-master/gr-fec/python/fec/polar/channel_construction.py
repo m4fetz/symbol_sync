@@ -27,8 +27,14 @@ foundational paper for polar codes.
 from channel_construction_bec import calculate_bec_channel_capacities
 from channel_construction_bec import design_snr_to_bec_eta
 from channel_construction_bec import bhattacharyya_bounds
-from channel_construction_awgn import tal_vardy_tpm_algorithm
 from helper_functions import *
+try:
+    from channel_construction_awgn import tal_vardy_tpm_algorithm
+except ImportError:
+    print("SciPy missing. Overwrite Tal-Vardy algorithm with BEC approximation")
+    def tal_vardy_tpm_algorithm(block_size, design_snr, mu):
+        return bhattacharyya_bounds(design_snr, block_size)
+
 
 
 Z_PARAM_FIRST_HEADER_LINE = "Bhattacharyya parameters (Z-parameters) for a polar code"
@@ -117,7 +123,7 @@ def load_z_parameters(block_size, design_snr, mu):
 
 def main():
     np.set_printoptions(precision=3, linewidth=150)
-    print 'channel construction Bhattacharyya bounds by Arikan'
+    print('channel construction Bhattacharyya bounds by Arikan')
     n = 10
     m = 2 ** n
     k = m // 2

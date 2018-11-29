@@ -36,6 +36,7 @@ namespace gr {
       static const size_t ALL_MBOARDS = ::uhd::usrp::multi_usrp::ALL_MBOARDS;
       static const size_t ALL_CHANS = ::uhd::usrp::multi_usrp::ALL_CHANS;
       static const std::string ALL_GAINS = ::uhd::usrp::multi_usrp::ALL_GAINS;
+
 #ifdef UHD_USRP_MULTI_USRP_LO_CONFIG_API
       static const std::string ALL_LOS = ::uhd::usrp::multi_usrp::ALL_LOS;
 #else

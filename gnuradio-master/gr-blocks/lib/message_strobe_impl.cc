@@ -51,9 +51,10 @@ namespace gr {
               io_signature::make(0, 0, 0)),
         d_finished(false),
         d_period_ms(period_ms),
-        d_msg(msg)
+        d_msg(msg),
+        d_port(pmt::mp("strobe"))
     {
-      message_port_register_out(pmt::mp("strobe"));
+      message_port_register_out(d_port);
 
       message_port_register_in(pmt::mp("set_msg"));
       set_msg_handler(pmt::mp("set_msg"),
@@ -90,12 +91,12 @@ namespace gr {
     void message_strobe_impl::run()
     {
       while(!d_finished) {
-        boost::this_thread::sleep(boost::posix_time::milliseconds(d_period_ms));
+        boost::this_thread::sleep(boost::posix_time::milliseconds(static_cast<long>(d_period_ms)));
         if(d_finished) {
           return;
         }
 
-        message_port_pub(pmt::mp("strobe"), d_msg);
+        message_port_pub(d_port, d_msg);
       }
     }
 

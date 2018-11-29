@@ -24,6 +24,7 @@ import os
 import re
 from optparse import OptionGroup
 import readline
+import getpass
 
 from util_functions import append_re_line_sequence, ask_yes_no, SequenceCompleter
 from cmakefile_editor import CMakeFileEditor
@@ -72,6 +73,18 @@ class ModToolAdd(ModTool):
     def setup(self, options, args):
         ModTool.setup(self, options, args)
 
+        if self._info['blockname'] is None:
+            if len(args) >= 2:
+                self._info['blockname'] = args[1]
+            else:
+                self._info['blockname'] = raw_input("Enter name of block/code (without module name prefix): ")
+        if os.path.isfile("./lib/"+self._info['blockname']+"_impl.cc") or os.path.isfile("./python/"+self._info['blockname']+".py"):
+            raise ModToolException('The given blockname already exists!')
+        if not re.match('[a-zA-Z0-9_]+', self._info['blockname']):
+            raise ModToolException('Invalid block name.')
+        print "Block/code identifier: " + self._info['blockname']
+        self._info['fullblockname'] = self._info['modname'] + '_' + self._info['blockname']
+
         self._info['blocktype'] = options.block_type
         if self._info['blocktype'] is None:
             # Print list out of blocktypes to user for reference
@@ -97,20 +110,20 @@ class ModToolAdd(ModTool):
         if ((self._skip_subdirs['lib'] and self._info['lang'] == 'cpp')
              or (self._skip_subdirs['python'] and self._info['lang'] == 'python')):
             raise ModToolException('Missing or skipping relevant subdir.')
-
-        if self._info['blockname'] is None:
-            if len(args) >= 2:
-                self._info['blockname'] = args[1]
-            else:
-                self._info['blockname'] = raw_input("Enter name of block/code (without module name prefix): ")
-        if not re.match('[a-zA-Z0-9_]+', self._info['blockname']):
-            raise ModToolException('Invalid block name.')
-        print "Block/code identifier: " + self._info['blockname']
-        self._info['fullblockname'] = self._info['modname'] + '_' + self._info['blockname']
+ 
         if not options.license_file:
             self._info['copyrightholder'] = options.copyright
             if self._info['copyrightholder'] is None:
-                self._info['copyrightholder'] = '<+YOU OR YOUR COMPANY+>'
+                user = getpass.getuser()
+                git_user = self.scm.get_gituser()
+                if git_user:
+                    copyright_candidates = (user, git_user, 'GNU Radio')
+                else:
+                    copyright_candidates = (user, 'GNU Radio')
+                with SequenceCompleter(copyright_candidates):
+                    self._info['copyrightholder'] = raw_input("Please specify the copyright holder: ")
+                    if not self._info['copyrightholder'] or self._info['copyrightholder'].isspace():
+                        self._info['copyrightholder'] = "gr-"+self._info['modname']+" author"
             elif self._info['is_component']:
                 print "For GNU Radio components the FSF is added as copyright holder"
         self._license_file = options.license_file

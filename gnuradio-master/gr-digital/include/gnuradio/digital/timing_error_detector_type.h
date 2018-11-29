@@ -38,6 +38,7 @@ namespace gr {
       TED_SIGNAL_TIMES_SLOPE_ML        = 7, // ML approx. for small signal
       TED_SIGNUM_TIMES_SLOPE_ML        = 8, // ML approx. for large signal
       TED_MENGALI_AND_DANDREA_GMSK     = 9, // Operates on the CPM signal
+      TED_SEONG_LEE_OQPSK              = 10,//for OQPSK
     };
 
   } /* namespace digital */

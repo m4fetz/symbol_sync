@@ -61,6 +61,9 @@ namespace gr {
                       gr_vector_const_void_star &input_items,
                       gr_vector_void_star &output_items)
     {
+      // thread-safe protection from ::set_threshold
+      gr::thread::scoped_lock l (d_setlock);
+
       const float *in = (const float *) input_items[0];
       unsigned char *out = (unsigned char *) output_items[0];
       int flank_start;
@@ -84,6 +87,18 @@ namespace gr {
 
       this->consume_each(i);
       return i;
+    }
+
+    void plateau_detector_fb_impl::set_threshold(float threshold)
+    {
+      // thread-safe protection from ::set_threshold
+      gr::thread::scoped_lock l (d_setlock);
+      d_threshold = threshold;
+    }
+
+    float plateau_detector_fb_impl::threshold() const
+    {
+      return d_threshold;
     }
 
   } /* namespace blocks */

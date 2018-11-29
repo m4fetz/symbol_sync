@@ -48,6 +48,9 @@ namespace gr {
         case TED_ZERO_CROSSING:
             ret = new ted_zero_crossing(constellation);
             break;
+        case TED_SEONG_LEE_OQPSK:                             //new TED added here
+            ret = new ted_seong_lee_oqpsk(constellation);
+            break;
         case TED_GARDNER:
             ret = new ted_gardner();
             break;
@@ -66,7 +69,7 @@ namespace gr {
         case TED_MENGALI_AND_DANDREA_GMSK:
             ret = new ted_gaussian_msk();
             break;
-        default: 
+        default:
             break;
         }
         return ret;
@@ -95,11 +98,12 @@ namespace gr {
             throw std::invalid_argument(
                   "timing_error_detector: constellation dimensionality "
                   "(complex numbers per symbol) must be 1.");
-        
+
         switch (type) {
         case TED_MUELLER_AND_MULLER:
         case TED_MOD_MUELLER_AND_MULLER:
         case TED_ZERO_CROSSING:
+        case TED_SEONG_LEE_OQPSK:                       //new TED added here
             if (!d_constellation)
                 throw std::invalid_argument(
                    "timing_error_detector: slicer constellation required.");
@@ -112,7 +116,7 @@ namespace gr {
         case TED_MENGALI_AND_DANDREA_GMSK:
             break;
         case TED_NONE:
-        default: 
+        default:
             throw std::invalid_argument(
                   "timing_error_detector: invalid timing error detector type.");
             break;
@@ -266,7 +270,7 @@ namespace gr {
 
     /*************************************************************************/
 
-    float 
+    float
     ted_mueller_and_muller::compute_error_cf()
     {
         return   (  d_decision[1].real() * d_input[0].real()

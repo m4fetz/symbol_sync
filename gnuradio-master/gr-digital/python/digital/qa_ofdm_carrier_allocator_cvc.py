@@ -1,23 +1,23 @@
 #!/usr/bin/env python
-# Copyright 2012-2014 Free Software Foundation, Inc.
-# 
+# Copyright 2012, 2018 Free Software Foundation, Inc.
+#
 # This file is part of GNU Radio
-# 
+#
 # GNU Radio is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3, or (at your option)
 # any later version.
-# 
+#
 # GNU Radio is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-# 
+#
 
 from gnuradio import gr, gr_unittest, digital, blocks
 import pmt
@@ -207,6 +207,44 @@ class qa_digital_carrier_allocator_cvc (gr_unittest.TestCase):
                 tags_found[key] = True
                 self.assertEqual(correct_offsets[key], tag.offset)
         self.assertTrue(all(tags_found.values()))
+
+    def test_004_t (self):
+        """
+        Provoking RuntimeError exceptions providing wrong user input (earlier invisible SIGFPE).
+        """
+        fft_len = 6
+
+        # Occupied carriers
+        with self.assertRaises(RuntimeError) as oc:
+          alloc = digital.ofdm_carrier_allocator_cvc(fft_len,
+                        (),
+                        ((),),
+                        ((),),
+                        (),
+                        self.tsb_key)
+
+        # Pilot carriers
+        with self.assertRaises(RuntimeError) as pc:
+          alloc = digital.ofdm_carrier_allocator_cvc(fft_len,
+                        ((),),
+                        (),
+                        ((),),
+                        (),
+                        self.tsb_key)
+
+        # Pilot carrier symbols
+        with self.assertRaises(RuntimeError) as ps:
+          alloc = digital.ofdm_carrier_allocator_cvc(fft_len,
+                        ((),),
+                        ((),),
+                        (),
+                        (),
+                        self.tsb_key)
+
+
+        self.assertEqual(str(oc.exception), "Occupied carriers must be of type vector of vector i.e. ((),).")
+        self.assertEqual(str(pc.exception), "Pilot carriers must be of type vector of vector i.e. ((),).")
+        self.assertEqual(str(ps.exception), "Pilot symbols must be of type vector of vector i.e. ((),).")
 
 
 if __name__ == '__main__':

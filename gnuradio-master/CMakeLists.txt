@@ -1,4 +1,4 @@
-# Copyright 2010-2017 Free Software Foundation, Inc.
+# Copyright 2010-2018 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -48,8 +48,8 @@ message(STATUS "Build type set to ${CMAKE_BUILD_TYPE}.")
 # Set the version information here
 set(VERSION_INFO_MAJOR_VERSION 3)
 set(VERSION_INFO_API_COMPAT    7)
-set(VERSION_INFO_MINOR_VERSION 12)
-set(VERSION_INFO_MAINT_VERSION git)
+set(VERSION_INFO_MINOR_VERSION 13)
+set(VERSION_INFO_MAINT_VERSION 4)
 include(GrVersion) #setup version info
 
 # Minimum dependency versions for central dependencies:
@@ -100,7 +100,7 @@ IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     ELSE()
         MESSAGE(WARNING "\nCannot determine the version of the compiler selected to build GNU Radio (GCC : ${CMAKE_CXX_COMPILER}). This build may or not work. We highly recommend using GCC version ${GCC_MIN_VERSION} or more recent.")
     ENDIF()
-ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     EXECUTE_PROCESS(COMMAND
         ${CMAKE_CXX_COMPILER} -v
         RESULT_VARIABLE _res ERROR_VARIABLE _err
@@ -137,7 +137,7 @@ ENDIF()
 
 IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     SET(CMAKE_CXX_STANDARD 98)
-ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+ELSEIF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     SET(CMAKE_CXX_STANDARD 98)
 ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     SET(CMAKE_CXX_STANDARD 98)
@@ -147,7 +147,7 @@ ENDIF()
 
 IF(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
-ELSEIF(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+ELSEIF(CMAKE_C_COMPILER_ID MATCHES "Clang")
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 ELSEIF(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11")
@@ -501,7 +501,7 @@ GR_LOGGING()
 # Distribute the README file
 ########################################################################
 install(
-    FILES README.md README.hacking
+    FILES README.md README.hacking CHANGELOG.md
     DESTINATION ${GR_PKG_DOC_DIR}
     COMPONENT "docs"
 )

@@ -332,7 +332,7 @@ namespace gr {
      * This is the Gardner timing error detector algorithm class.
      *
      * See:
-     * F.M. Gardner, “A BPSK/QPSK Timing Error Detector for Sampled Receivers”, 
+     * F.M. Gardner, “A BPSK/QPSK Timing Error Detector for Sampled Receivers”,
      * IEEE Trans., COM-34, (5), 1988, pp. 423 – 429.
      */
     class ted_gardner : public timing_error_detector
@@ -501,6 +501,30 @@ namespace gr {
                                   1, 1, false, true, constellation_sptr())
         {}
         ~ted_signum_times_slope_ml() {};
+
+      private:
+        float compute_error_cf();
+        float compute_error_ff();
+    };
+
+
+
+    class ted_seong_lee_oqpsk : public timing_error_detector
+    {
+      public:
+        /*!
+         * \brief Create a OQPSK timing error detector
+         *  based on the work of Seong and Lee.
+         *  "Timing Error Detector for OQPSK Signal",
+         *  IEEE 62nd Vehicular Technology Conference,
+         *  September 2005
+         */
+
+        ted_seong_lee_oqpsk(constellation_sptr constellation)
+          : timing_error_detector(TED_SEONG_LEE_OQPSK,
+                                  1, 1, false, true, constellation)       //new TED added here
+        {}
+        ~ted_seong_lee_oqpsk() {};
 
       private:
         float compute_error_cf();

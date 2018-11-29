@@ -861,6 +861,14 @@ namespace gr {
     // These are really only for internal use, but leaving them public avoids
     // having to work up an ever-varying list of friend GR_RUNTIME_APIs
 
+    /*! PMT Symbol for "hey, we're done here"
+     */
+    const pmt::pmt_t d_pmt_done;
+
+    /*! PMT Symbol of the system port, `pmt::mp("system")`
+     */
+    const pmt::pmt_t d_system_port;
+
   public:
     block_detail_sptr detail() const { return d_detail; }
     void set_detail(block_detail_sptr detail) { d_detail = detail; }
