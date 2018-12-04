@@ -27,6 +27,7 @@
 #include "timing_error_detector.h"
 #include <gnuradio/math.h>
 #include <stdexcept>
+#include <cmath>
 
 namespace gr {
   namespace digital {
@@ -424,7 +425,7 @@ namespace gr {
         return (  d_input[0].real() * d_input_derivative[0].real());
     }
 
-    /*************************************************************************/
+
 
     float
     ted_signum_times_slope_ml::compute_error_cf()
@@ -442,6 +443,30 @@ namespace gr {
         return (d_input[0].real() < 0.0f ? -d_input_derivative[0].real()
                                          :  d_input_derivative[0].real());
     }
+
+    /*************************************************************************/
+
+    float
+    ted_seong_lee_oqpsk::compute_error_cf()
+    {                                                   //computation here
+        return (    (d_input[].real()*d_input[].real()) )
+
+                        )
+    }
+
+    float
+    ted_seong_lee_oqpsk::compute_error_ff()             //computation here
+    {
+        return ()
+    }
+
+
+
+
+
+
+
+
 
   } /* namespace digital */
 } /* namespace gr */
