@@ -522,7 +522,7 @@ namespace gr {
 
         ted_seong_lee_oqpsk(constellation_sptr constellation)
           : timing_error_detector(TED_SEONG_LEE_OQPSK,
-                                  4, 4, false, false, constellation)       //new TED added here
+                                  4, 5, false, false, constellation)       //new TED added here
         {}
         ~ted_seong_lee_oqpsk() {};
 

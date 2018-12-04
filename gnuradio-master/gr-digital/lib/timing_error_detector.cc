@@ -269,6 +269,7 @@ namespace gr {
         return z;
     }
 
+
     /*************************************************************************/
 
     float
@@ -445,13 +446,27 @@ namespace gr {
     }
 
     /*************************************************************************/
+    float
+    ted_seong_lee_oqpsk::s_q(int n)
+    {
+      return      (     d_input[n].real()*d_input[n].real()
+                     +  d_input[n].imag()*d_input[n].imag());
+
+    }
+
+    float
+    ted_seong_lee_oqpsk::s_d(int n)
+    {
+        return  ((s_q(n-1) - s_q(n+1)) / (2.0f*4.0f))  ;
+
+    }
+
 
     float
     ted_seong_lee_oqpsk::compute_error_cf()
-    {                                                   //computation here
-        return (    (d_input[].real()*d_input[].real()) )
+    {
+        return ( s_d(2)*(s_d(1)-s_d(3)))   ;
 
-                        )
     }
 
     float
