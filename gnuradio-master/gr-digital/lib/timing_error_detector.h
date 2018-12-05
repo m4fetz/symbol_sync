@@ -527,6 +527,8 @@ namespace gr {
         ~ted_seong_lee_oqpsk() {};
 
       private:
+        float s_q(int n);
+        float s_d(int n);
         float compute_error_cf();
         float compute_error_ff();
     };

@@ -472,7 +472,7 @@ namespace gr {
     float
     ted_seong_lee_oqpsk::compute_error_ff()             //computation here
     {
-        return ()
+        return (0);
     }
 
 
