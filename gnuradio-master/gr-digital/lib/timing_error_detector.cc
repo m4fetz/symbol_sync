@@ -104,11 +104,12 @@ namespace gr {
         case TED_MUELLER_AND_MULLER:
         case TED_MOD_MUELLER_AND_MULLER:
         case TED_ZERO_CROSSING:
-        case TED_SEONG_LEE_OQPSK:                       //new TED added here
+        case TED_SEONG_LEE_OQPSK:                      //new TED added here
             if (!d_constellation)
                 throw std::invalid_argument(
                    "timing_error_detector: slicer constellation required.");
             break;
+
         case TED_GARDNER:
         case TED_EARLY_LATE:
         case TED_DANDREA_AND_MENGALI_GEN_MSK:
@@ -453,11 +454,19 @@ namespace gr {
                      +  d_input[n].imag()*d_input[n].imag());
 
     }
+    float
+    ted_seong_lee_oqpsk::s_q_prev(int n)
+    {
+      return      (     d_input_derivative[n].real()*d_input_derivative[n].real()
+                     +  d_input_derivative[n].imag()*d_input_derivative[n].imag());
+
+    }
+
 
     float
     ted_seong_lee_oqpsk::s_d(int n)
-    {
-        return  ((s_q(n-1) - s_q(n+1)) / (2.0f*4.0f))  ;
+    {           //previous   following
+        return  ((s_q_prev(n) - s_q(n+1)) / (2.0f*4.0f))  ; //sign switch?
 
     }
 
@@ -465,7 +474,7 @@ namespace gr {
     float
     ted_seong_lee_oqpsk::compute_error_cf()
     {
-        return ( s_d(2)*(s_d(1)-s_d(3)))   ;
+        return ( s_d(1)*(s_d(0)-s_d(2)))   ;            //sign switch?
 
     }
 

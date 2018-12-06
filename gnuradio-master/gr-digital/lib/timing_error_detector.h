@@ -522,13 +522,14 @@ namespace gr {
 
         ted_seong_lee_oqpsk(constellation_sptr constellation)
           : timing_error_detector(TED_SEONG_LEE_OQPSK,
-                                  4, 5, false, false, constellation)       //new TED added here
+                                  4, 4, false, true, constellation)       //new TED added here
         {}
         ~ted_seong_lee_oqpsk() {};
 
       private:
         float s_q(int n);
         float s_d(int n);
+        float s_q_prev(int n);
         float compute_error_cf();
         float compute_error_ff();
     };

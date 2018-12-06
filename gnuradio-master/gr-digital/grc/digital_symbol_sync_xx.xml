@@ -59,13 +59,13 @@
             <opt>hide_constellation:part</opt>
         </option>
         <option>
-            <name>Seong and Lee OQPSK</name>
-            <key>digital.TED_SEONG_LEE_OQPSK</key>
-            <opt>hide_constellation:part</opt>
-        </option>
-        <option>
             <name>Modified Mueller and Müller</name>
             <key>digital.TED_MOD_MUELLER_AND_MULLER</key>
+            <opt>hide_constellation:part</opt>
+        </option>
+	<option>
+            <name>Seong and Lee OQPSK</name>
+            <key>digital.TED_SEONG_LEE_OQPSK</key>
             <opt>hide_constellation:part</opt>
         </option>
         <option>
