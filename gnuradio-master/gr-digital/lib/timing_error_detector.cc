@@ -449,14 +449,14 @@ namespace gr {
     /*************************************************************************/
     float
     ted_seong_lee_oqpsk::s_q(int n)
-    {
+    {                 //taking the square of the current input sample
       return      (     d_input[n].real()*d_input[n].real()
                      +  d_input[n].imag()*d_input[n].imag());
 
     }
     float
     ted_seong_lee_oqpsk::s_q_prev(int n)
-    {
+    {                 //taking the square of the previous input sample
       return      (     d_input_derivative[n].real()*d_input_derivative[n].real()
                      +  d_input_derivative[n].imag()*d_input_derivative[n].imag());
 
@@ -465,8 +465,8 @@ namespace gr {
 
     float
     ted_seong_lee_oqpsk::s_d(int n)
-    {           //previous   following
-        return  ((s_q_prev(n) - s_q(n+1)) / (2.0f*4.0f))  ; //sign switch?
+    {           //previous  -  following samples divided by (2*T_s)
+        return  ((s_q_prev(n) - s_q(n+1)) / (2.0f * (float)inputs_per_symbol()))  ;
 
     }
 
@@ -474,13 +474,13 @@ namespace gr {
     float
     ted_seong_lee_oqpsk::compute_error_cf()
     {
-        return ( s_d(1)*(s_d(0)-s_d(2)))   ;            //sign switch?
+        return ( s_d(1)*(s_d(0)-s_d(2)))   ;
 
     }
 
     float
-    ted_seong_lee_oqpsk::compute_error_ff()             //computation here
-    {
+    ted_seong_lee_oqpsk::compute_error_ff()             //as this works on QPSK symbols
+    {                                                   //there is no float to float implementation
         return (0);
     }
 

@@ -514,7 +514,7 @@ namespace gr {
       public:
         /*!
          * \brief Create a OQPSK timing error detector
-         *  based on the work of Seong and Lee.
+         *  based on the work of J. Seong and H. Lee.
          *  "Timing Error Detector for OQPSK Signal",
          *  IEEE 62nd Vehicular Technology Conference,
          *  September 2005
@@ -522,7 +522,7 @@ namespace gr {
 
         ted_seong_lee_oqpsk(constellation_sptr constellation)
           : timing_error_detector(TED_SEONG_LEE_OQPSK,
-                                  4, 4, false, true, constellation)       //new TED added here
+                                  4, 4, false, true, constellation)
         {}
         ~ted_seong_lee_oqpsk() {};
 
