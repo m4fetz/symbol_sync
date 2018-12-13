@@ -1,4 +1,4 @@
-Modification of the "Symbol Sync" block for GNU Radio
+Modification of the "Symbol Sync" block of GNU Radio
 
 Implementation of an OQPSK Timing error detector, proposed by Jinsuk Seong 
 and Hyuckjae Lee.
