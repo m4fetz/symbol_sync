@@ -23,6 +23,8 @@ To run the script type:
 
 >>>python install.py [desired directory] 		(home/user/prefix ,if using pybombs)
 
+The provided flowgraph shows the functionality of the block and the recommended parameters.
+
 
 
 
