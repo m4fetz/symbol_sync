@@ -21,7 +21,7 @@ After copying them to the desired destination, they will be installed via "make 
 
 To run the script type:
 
->>>python install.py [desired directory] 		(home/user/prefix ,if using pybombs)
+>>>python install.py [desired directory] 		(home/user/prefix, if using pybombs)
 
 The provided flowgraph shows the functionality of the block and the recommended parameters.
 
