@@ -7,9 +7,9 @@ Implementation of an OQPSK Timing error detector, proposed by Jinsuk Seong
 and Hyuckjae Lee.
 
 Source:
-"Timing Error Detector for OQPSK Signal",
- IEEE 62nd Vehicular Technology Conference,
- September 2005
+*"Timing Error Detector for OQPSK Signal",*
+ *IEEE 62nd Vehicular Technology Conference,*
+*September 2005*
 
 Requires at least GNURadio 3.7.12.  
 Tested and verified under GNURadio 3.7.13.
