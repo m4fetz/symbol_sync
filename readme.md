@@ -11,20 +11,22 @@ Source:
  IEEE 62nd Vehicular Technology Conference,
  September 2005
 
-Requires at least GNURadio 3.7.12.
+Requires at least GNURadio 3.7.12. 
 Tested and verified under GNURadio 3.7.13.
 
 ---
 
-Modified files:
-/lib/timing_error_detector.cc
-/lib/timing_error_detector.h
-/include/gnuradio/digital/timing_error_detector_type.h
-/grc/digital_symbol_sync_xx.xml
+**Modified files:**
+
+/lib/timing_error_detector.cc 
+/lib/timing_error_detector.h 
+/include/gnuradio/digital/timing_error_detector_type.h 
+/grc/digital_symbol_sync_xx.xml 
 
 ---
 
 **Installation**
+
 The provided install.py script will replace the existing files above with the new ones.
 After copying them to the desired destination, they will be installed via "make && make install".
 
